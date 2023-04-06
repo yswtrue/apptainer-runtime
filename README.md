@@ -37,8 +37,8 @@
   1. 运行微信
 
      ```bash
-     apptainer run -B /run wechat.sif
-     apptainer run -B /run wechat-web-devtools.sif
+     apptainer run wechat.sif
+     apptainer run wechat-web-devtools.sif
      ```
 
 ## 本地构建最新容器镜像
@@ -78,21 +78,8 @@
 3. 运行微信
 
    ```bash
-   singularity exec -B /run /opt/wechat.sif /opt/apps/com.qq.weixin.deepin/files/run.sh
+   apptainer run wechat.sif
    ```
-
-## 常用命令
-
-```bash
-# 运行微信
-singularity exec -B /run /opt/wechat.sif /opt/apps/com.qq.weixin.deepin/files/run.sh
-# 唤出已运行的WeChat窗口
-singularity exec /opt/wechat.sif /opt/deepinwine/tools/sendkeys.sh w wechat 4
-# 微信截图
-singularity exec /opt/wechat.sif /opt/deepinwine/tools/sendkeys.sh a wechat 3
-# 退出微信
-singularity exec /opt/wechat.sif /opt/deepinwine/tools/kill.sh wechat
-```
 
 ## xdg-open-server
 
