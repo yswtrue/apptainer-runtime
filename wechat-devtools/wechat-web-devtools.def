@@ -1,40 +1,40 @@
-BootStrap: debootstrap
-MirrorURL: http://mirrors.aliyun.com/debian
-OSVersion: buster
+Bootstrap: docker
+From: debian:buster
 
 %post
+  apt update
   apt install ca-certificates -y
   cat <<EOF > /etc/apt/sources.list
 deb [by-hash=force] https://community-packages.deepin.com/deepin/ apricot main contrib non-free
 deb https://com-store-packages.uniontech.com/appstore deepin appstore
 EOF
-  dpkg --add-architecture i386
   apt update
+  dpkg --add-architecture i386
   apt install -y --no-install-recommends locales procps x11-utils socat file python2
-  echo 'zh_CN.UTF-8 UTF-8' > /etc/locale.gen 
-  locale-gen 
-  apt install -y --no-install-recommends com.qq.weixin.deepin
+  echo 'zh_CN.UTF-8 UTF-8' > /etc/locale.gen
+  locale-gen
+  apt install -y --install-recommends github.cytle.wechat-web-devtools
+  DEBIAN_FRONTEND=noninteractive apt install -y fonts-wqy-microhei libglib2.0-0 libnss3 libgdk-pixbuf2.0-0 libgconf-2-4 libxss1 libasound2 libatk1.0-0 libcups2 libdrm2 xorg gtk+3.0
 
-  rm -rvf /usr/share/icons/Adwaita 
-  find /var/lib/apt/lists -type f -delete 
-  find /var/cache -type f -delete 
-  find /var/log -type f -delete 
-  find /usr/share/doc -type f -delete 
-  find /usr/share/man -type f -delete 
-  find /usr/share/locale -type f -delete
+
 
 %environment
   export DEBIAN_FRONTEND=noninteractive
   export GTK_IM_MODULE="fcitx"
-  export XMODIFIERS="@im=fcitx" 
+  export XMODIFIERS="@im=fcitx"
   export QT_IM_MODULE="fcitx"
   export LANG=zh_CN.UTF-8
-  export LANGUAGE=zh_CN.UTF-8 
-  export LC_ALL=zh_CN.UTF-8 
-  export LANG=zh_CN.UTF-8 
+  export LANGUAGE=zh_CN.UTF-8
+  export LC_ALL=zh_CN.UTF-8
+  export LANG=zh_CN.UTF-8
   export TZ=UTC-8
 
 %files
   keyrings/deepin-archive-keyring.gpg /etc/apt/trusted.gpg.d/
   keyrings/appstore.gpg   /etc/apt/trusted.gpg.d/
   xdg-open /usr/bin/
+  wechat-devtools/wechat-devtools /
+
+
+%runscript
+  /wechat-devtools

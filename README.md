@@ -1,14 +1,15 @@
-# Singularity-wechat
+# Apptainer-runtime
 
 ## 快速开始
 
 1. 下载微信镜像
 
    ```bash
-   sudo wget https://github.com/brighill/singularity-deepin/releases/download/stable/wechat.sif -O /opt/wechat.sif
+   wget https://github.com/yswtrue/apptainer-runtime/releases/download/stable/wechat.sif
+   wget https://github.com/yswtrue/apptainer-runtime/releases/download/latest/wechat-web-devtools.sif
    ```
 
-2. 安装singularity（[详情](https://apptainer.org/docs/admin/main/installation.html#install-from-pre-built-packages)）
+2. 安装Apptainer（[详情](https://apptainer.org/docs/admin/main/installation.html#install-from-pre-built-packages)）
 
 
    gentoo:
@@ -36,7 +37,8 @@
   1. 运行微信
 
      ```bash
-     singularity exec -B /run /opt/wechat.sif /opt/apps/com.qq.weixin.deepin/files/run.sh
+     apptainer run -B /run wechat.sif
+     apptainer run -B /run wechat-web-devtools.sif
      ```
 
 ## 本地构建最新容器镜像
@@ -68,15 +70,9 @@
 2. 构建镜像
 
    ```bash
-   git clone https://github.com/brighill/singularity-deepin.git
-   cd singularity-deepin
-   sudo singularity build /opt/wechat.sif deepin-wechat.def
-   # 如果提示 > WARNING: 'nodev' mount option set on /tmp, it could be a source of failure during build process
-   # 则需要设置SINGULARITY_TMPDIR为其他目录：
-   # sudo mkdir /opt/tmp
-   # sudo SINGULARITY_TMPDIR=/opt/tmp singularity build /opt/wechat.sif deepin-wechat.def
-   # sudo rm -rf /opt/tmp
-   cp -r entries/* /usr/share/
+   git clone https://github.com/yswtrue/apptainer-runtime.git
+   cd apptainer-runtime
+   apptainer build wechat.sif wechat/deepin-wechat.def
    ```
 
 3. 运行微信
@@ -109,3 +105,8 @@ gcc -lX11 -lpthread main.c -o xdg-open-server
 ./xdg-open-server
 ```
 > 详情 https://github.com/kitsunyan/xdg-open-server
+
+
+## 已知问题
+
+- [微信开发者工具也许会遇到内存溢出的问题,有待验证](https://github.com/NixOS/nixpkgs/issues/224828#issuecomment-1499317731)
