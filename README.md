@@ -37,8 +37,8 @@
   1. 运行微信
 
      ```bash
-     apptainer run wechat.sif
-     apptainer run wechat-web-devtools.sif
+     apptainer run -B /run wechat.sif
+     apptainer run -B /run wechat-web-devtools.sif
      ```
 
 ## 本地构建最新容器镜像
@@ -78,7 +78,7 @@
 3. 运行微信
 
    ```bash
-   apptainer run wechat.sif
+   apptainer run -B /run wechat.sif
    ```
 
 ## xdg-open-server
