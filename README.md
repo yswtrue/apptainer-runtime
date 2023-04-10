@@ -97,3 +97,4 @@ gcc -lX11 -lpthread main.c -o xdg-open-server
 ## 已知问题
 
 - [微信开发者工具也许会遇到内存溢出的问题,有待验证](https://github.com/NixOS/nixpkgs/issues/224828#issuecomment-1499317731)
+- 如果无法保存文件或者发送文件可以尝试`xhost +`,然后`apptainer run wechat.sif`
